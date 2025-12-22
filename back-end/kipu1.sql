@@ -1,6 +1,6 @@
 -- 1. Criação do Banco
 CREATE DATABASE kipu;
-USE simgetec_portal;
+USE kipu;
 
 -- --------------------------------------------------------
 

@@ -1,6 +1,6 @@
 -- 1. Criar a Base de Dados
 CREATE DATABASE kipu;
-USE simgetec_portal;
+USE kipu;
 
 -- --------------------------------------------------------
 
