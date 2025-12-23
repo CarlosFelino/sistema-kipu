@@ -1,7 +1,7 @@
 <?php
 // Definições do computador/servidor
 $host = 'localhost'; // O endereço da base de dados (geralmente localhost)
-$dbname = 'kipu'; // O nome que demos à base de dados no SQL
+$dbname = 'simgetec_portal'; // O nome que demos à base de dados no SQL
 $user = 'root'; // Utilizador padrão do XAMPP/WAMP (pode variar)
 $pass = ''; // Senha padrão (geralmente vazia no XAMPP)
 
