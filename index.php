@@ -21,7 +21,7 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kipu - Repositório Acadêmico</title>
     <style>
-        /* --- VARIÁVEIS DE CORES (Baseado na sua lista) --- */
+        /* --- VARIÁVEIS DE CORES --- */
         :root {
             --bg-body: #f4f4f9;
             --bg-header: #102939;    /* Azul Profundo */
@@ -45,6 +45,11 @@ try {
             margin: 0; 
             padding: 0; 
             color: var(--text-dark); 
+            
+            /* TRUQUE DO RODAPÉ (Sticky Footer) */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Garante que o corpo tenha no mínimo a altura da janela */
         }
         
         a { text-decoration: none; }
@@ -56,12 +61,11 @@ try {
             padding: 15px 30px; 
             display: flex;
             align-items: center;
-            justify-content: space-between; /* Espalha os itens */
+            justify-content: space-between;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             position: relative;
         }
 
-        /* Área da Logo (Centralizada) */
         .logo-container {
             position: absolute;
             left: 50%;
@@ -79,15 +83,11 @@ try {
         .logo-container p {
             margin: 0;
             font-size: 0.8em;
-            color: var(--accent-gold); /* Detalhe na cor bege */
+            color: var(--accent-gold);
             font-style: italic;
         }
 
-        /* Área de Navegação (Botões à direita) */
-        .nav-buttons {
-            margin-left: auto; /* Empurra para a direita se não usar position absolute */
-            z-index: 10;
-        }
+        .nav-buttons { margin-left: auto; z-index: 10; }
 
         .btn-login {
             background-color: var(--accent-green);
@@ -109,8 +109,13 @@ try {
         /* --- CONTAINER PRINCIPAL --- */
         .container { 
             max-width: 1200px; 
+            width: 100%; /* Garante largura no flexbox */
             margin: 40px auto; 
-            padding: 0 20px; 
+            padding: 0 20px;
+            box-sizing: border-box; /* Evita que o padding estoure a largura */
+            
+            /* TRUQUE DO RODAPÉ: Faz esse elemento crescer para ocupar o espaço vazio */
+            flex: 1; 
         }
         
         .section-title {
@@ -120,13 +125,11 @@ try {
             color: var(--primary-blue);
         }
 
-        /* --- GRID DE ARTIGOS (As Caixinhas) --- */
+        /* --- GRID DE ARTIGOS --- */
         .articles-grid {
             display: grid;
-            /* Isso cria colunas automáticas. minmax(300px, 1fr) significa:
-               "O cartão deve ter no mínimo 300px. Se couber mais, divida o espaço (1fr)" */
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px; /* Espaço entre as caixinhas */
+            gap: 25px;
         }
         
         /* --- CARTÃO DO ARTIGO --- */
@@ -135,16 +138,14 @@ try {
             border-radius: 8px; 
             padding: 25px; 
             box-shadow: 0 2px 10px rgba(0,0,0,0.05); 
-            border-top: 5px solid var(--primary-blue); /* Detalhe no topo */
+            border-top: 5px solid var(--primary-blue);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             transition: transform 0.2s;
         }
 
-        .card:hover {
-            transform: translateY(-5px); /* Efeito de "levantar" ao passar o mouse */
-        }
+        .card:hover { transform: translateY(-5px); }
         
         .card h2 { 
             margin-top: 0; 
@@ -160,11 +161,8 @@ try {
             line-height: 1.6;
         }
         
-        .meta-info strong { 
-            color: var(--accent-green); 
-        }
+        .meta-info strong { color: var(--accent-green); }
         
-        /* Botão de Download dentro do card */
         .btn-download {
             text-align: center;
             display: block;
@@ -175,12 +173,10 @@ try {
             border-radius: 6px;
             font-weight: 600;
             transition: background 0.3s;
-            margin-top: auto; /* Empurra o botão para o final do card */
+            margin-top: auto;
         }
         
-        .btn-download:hover { 
-            background-color: var(--hover-blue); 
-        }
+        .btn-download:hover { background-color: var(--hover-blue); }
 
         /* --- RODAPÉ --- */
         footer { 
@@ -189,7 +185,9 @@ try {
             background-color: var(--text-dark);
             color: var(--text-light); 
             font-size: 0.85em; 
-            margin-top: 13.75em; 
+            
+            /* Removemos o margin-top gigante fixo */
+            margin-top: 40px; /* Apenas um respiro pequeno do conteúdo */
         }
     </style>
 </head>
@@ -197,11 +195,9 @@ try {
 
     <header>
         <div style="width: 100px;"></div> 
-
         <div class="logo-container">
             <h1>Kipu</h1>
         </div>
-
         <nav class="nav-buttons">
             <a href="login.php" class="btn-login">Login</a>
         </nav>
@@ -213,29 +209,26 @@ try {
 
         <div class="articles-grid">
             <?php if (count($artigos) > 0): ?>
-                
                 <?php foreach($artigos as $artigo): ?>
                     <div class="card">
                         <div>
                             <h2><?php echo htmlspecialchars($artigo['titulo']); ?></h2>
-                            
                             <div class="meta-info">
                                 <p><strong>Autores:</strong><br> <?php echo htmlspecialchars($artigo['nomes_alunos']); ?></p>
                                 <p><strong>Orientador:</strong> <?php echo htmlspecialchars($artigo['nome_orientador']); ?></p>
                                 <p><strong>Data:</strong> <?php echo date('d/m/Y', strtotime($artigo['data_publicacao'])); ?></p>
                             </div>
                         </div>
-
                         <a href="<?php echo htmlspecialchars($artigo['caminho_ficheiro']); ?>" class="btn-download" target="_blank">
                             Baixar PDF
                         </a>
                     </div>
                 <?php endforeach; ?>
-
             <?php else: ?>
                 <p>Ainda não há artigos cadastrados.</p>
             <?php endif; ?>
-        </div> </div>
+        </div> 
+    </div>
 
     <footer>
         Sistema Kipu &copy; <?php echo date('Y'); ?> - Fatec Carapicuíba

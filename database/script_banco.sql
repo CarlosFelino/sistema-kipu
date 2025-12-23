@@ -1,7 +1,9 @@
 -- 1. Criação do Banco de Dados
 CREATE DATABASE IF NOT EXISTS simgetec_portal;
 USE simgetec_portal;
-
+SELECT * FROM matriculas_permitidas;
+SELECT * FROM artigos;
+SELECT * FROM professores;
 -- --------------------------------------------------------
 
 -- 2. Tabela de Matrículas Autorizadas
@@ -10,6 +12,10 @@ CREATE TABLE matriculas_permitidas (
     id INT AUTO_INCREMENT PRIMARY KEY,
     numero_matricula VARCHAR(20) NOT NULL UNIQUE
 );
+
+INSERT INTO matriculas_permitidas (numero_matricula) VALUES (1234);
+INSERT INTO matriculas_permitidas (numero_matricula) VALUES (5678);
+INSERT INTO matriculas_permitidas (numero_matricula) VALUES (9999);
 
 -- --------------------------------------------------------
 
@@ -41,16 +47,13 @@ CREATE TABLE artigos (
 -- 5. DADOS INICIAIS (SEED)
 -- Para você conseguir logar e testar assim que rodar o script.
 
--- A. Inserindo uma matrícula válida
-INSERT INTO matriculas_permitidas (numero_matricula) VALUES ('PROF2024');
-
 -- B. Criando o primeiro Professor (Admin)
 -- Login: prof@simgetec.com
 -- Senha: 123456
 INSERT INTO professores (nome, email, matricula, senha) 
-VALUES ('Professor Administrador', 'prof@simgetec.com', 'PROF2024', '123456');
+VALUES ('Professor Administrador', 'prof@simgetec.com', '2025', '123456');
 
 -- C. Criando um Artigo de Exemplo
 -- Nota: O caminho 'uploads/exemplo.pdf' é fictício, o download dará erro 404 até você subir um real.
 INSERT INTO artigos (titulo, nomes_alunos, nome_orientador, caminho_ficheiro, id_professor_postou)
-VALUES ('Implementação do Sistema Kipu', 'Carlos e Turma de ADS', 'Orientador Gemini', 'uploads/exemplo_kipu.pdf', 1);
+VALUES ('Implementação do Sistema Kipu', 'Turma de ADS', 'Orientador José', 'uploads/exemplo_kipu.pdf', 1);
