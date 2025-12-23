@@ -82,16 +82,17 @@ try {
 </head>
 <body>
 
-    <div class="sidebar">
-        <h2>Kipu Admin</h2>
-        <p>Olá, <?php echo htmlspecialchars($nome_professor); ?></p>
-        
-        <a href="painel.php" style="color: white; font-weight: bold;">📄 Meus Artigos</a>
-        <a href="cadastrar.php">➕ Novo Artigo</a>
-        <a href="configuracoes.php">⚙️ Configurações</a>
-        
-        <a href="logout.php" class="sair">🚪 Sair do Sistema</a>
-    </div>
+<div class="sidebar">
+    <h2>Kipu Admin</h2>
+    <p>Olá, <?php echo htmlspecialchars($nome_professor); ?></p>
+    
+    <a href="painel.php">📄 Meus TGs</a>
+    <a href="cadastrar-tg.php">➕ Novo TG</a>
+    <a href="novo_professor.php">🎓 Cadastrar Professor</a>
+    <a href="meu_perfil.php">👤 Meu Perfil</a>
+    
+    <a href="logout.php" class="sair">🚪 Sair</a>
+</div>
 
     <div class="content">
         <div class="header-content">
@@ -120,7 +121,11 @@ try {
                             <td>
                                 <a href="<?php echo $artigo['caminho_ficheiro']; ?>" target="_blank" title="Ver PDF">👁️</a>
                                 &nbsp;
-                                <a href="excluir_artigo.php?id=<?php echo $artigo['id']; ?>" onclick="return confirm('Tem certeza?');" title="Excluir" style="color:red;">🗑️</a>
+                                
+                                <a href="editar_tg.php?id=<?php echo $artigo['id']; ?>" title="Editar">✏️</a>
+                                &nbsp;
+                                
+                                <a href="excluir_tg.php?id=<?php echo $artigo['id']; ?>" onclick="return confirm('Tem certeza que deseja apagar este TG e o arquivo PDF?');" style="color:red;" title="Excluir">🗑️</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
